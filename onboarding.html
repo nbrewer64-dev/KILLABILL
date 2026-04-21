@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Started — Kill A Bill</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#fdf6ec;color:#2a1a0e;font-family:'Plus Jakarta Sans',sans-serif;overflow-x:hidden}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.1rem 2.5rem;background:rgba(253,246,236,0.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(200,130,60,0.2)}
+.nav-brand{display:flex;flex-direction:column;text-decoration:none}
+.nav-logo{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:700;color:#c4621a;letter-spacing:-0.01em;line-height:1}
+.nav-sub{font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:#9a7a62;font-weight:500}
+.nav-links{display:flex;align-items:center;gap:1.5rem}
+.nav-link{font-size:0.82rem;color:#6b4f3a;text-decoration:none;font-weight:500}
+.nav-link:hover{color:#c4621a}
+.nav-cta{background:#e8873a;color:white;border:none;border-radius:100px;padding:0.65rem 1.5rem;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.8rem;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block}
+.nav-cta:hover{background:#c4621a}
+
+/* PAGE HEADER */
+.page-header{padding:8rem 2.5rem 4rem;background:#fff9f2;border-bottom:1px solid rgba(200,130,60,0.14);position:relative;overflow:hidden}
+.page-header::before{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:rgba(232,135,58,0.1);filter:blur(70px);top:-100px;right:-80px;pointer-events:none}
+.back-link{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.8rem;color:#9a7a62;text-decoration:none;font-weight:500;margin-bottom:2rem}
+.back-link:hover{color:#c4621a}
+.page-title{font-family:'Fraunces',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:700;letter-spacing:-0.025em;line-height:1.0;color:#2a1a0e}
+.page-title em{font-style:italic;color:#e8873a}
+.page-sub{font-size:1rem;color:#6b4f3a;max-width:520px;line-height:1.75;margin-top:1rem}
+
+/* PROGRESS INDICATOR */
+.progress-bar{background:#4a2e1a;padding:1.25rem 2.5rem;display:flex;justify-content:center;align-items:center;gap:0}
+.prog-step{display:flex;align-items:center;gap:0}
+.prog-dot{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;color:rgba(255,244,232,0.4);transition:all 0.3s;cursor:pointer;flex-shrink:0}
+.prog-dot.active{background:#e8873a;border-color:#e8873a;color:white}
+.prog-dot.done{background:#5a8060;border-color:#5a8060;color:white}
+.prog-line{width:60px;height:2px;background:rgba(255,255,255,0.1)}
+.prog-line.done{background:#5a8060}
+.prog-label{font-size:0.6rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,244,232,0.35);margin-top:0.35rem;text-align:center;max-width:80px}
+
+/* SECTIONS */
+.section{padding:5rem 2.5rem}
+.eyebrow-tag{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.7rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#c4621a;margin-bottom:0.9rem}
+.eyebrow-tag::before{content:'';display:inline-block;width:20px;height:2px;background:#e8873a;border-radius:2px}
+.section-title{font-family:'Fraunces',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;letter-spacing:-0.02em;line-height:1.1;color:#2a1a0e}
+.section-title em{font-style:italic;color:#e8873a}
+
+/* TIER SELECT */
+.tier-section{background:#fdf6ec}
+.tier-note{font-size:0.92rem;color:#6b4f3a;line-height:1.75;max-width:600px;margin-top:0.75rem;margin-bottom:2.5rem}
+.tier-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0.85rem}
+.tier-card{background:white;border-radius:18px;padding:1.5rem;border:1.5px solid rgba(200,130,60,0.2);transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s;cursor:pointer}
+.tier-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(74,46,26,0.1);border-color:rgba(232,135,58,0.4)}
+.tier-card.featured{background:#e8873a;border-color:#e8873a;box-shadow:0 6px 24px rgba(232,135,58,0.4)}
+.t-name{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:#2a1a0e;margin-bottom:0.2rem}
+.tier-card.featured .t-name{color:white}
+.t-range{font-size:0.7rem;color:#9a7a62;margin-bottom:1rem}
+.tier-card.featured .t-range{color:rgba(255,255,255,0.72)}
+.t-price{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:700;color:#c4621a;line-height:1}
+.tier-card.featured .t-price{color:white}
+.t-mo{font-size:0.68rem;color:#9a7a62}
+.tier-card.featured .t-mo{color:rgba(255,255,255,0.65)}
+.t-badge{display:inline-block;background:white;color:#c4621a;border-radius:100px;padding:0.2rem 0.6rem;font-size:0.58rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.75rem}
+
+/* BROKER SECTION */
+.broker-section{background:#fff9f2}
+.broker-note{font-size:0.92rem;color:#6b4f3a;line-height:1.75;max-width:600px;margin-top:0.75rem;margin-bottom:2.5rem}
+.broker-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.broker-card{background:white;border-radius:18px;padding:1.5rem;border:1.5px solid rgba(200,130,60,0.2);transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s;cursor:pointer}
+.broker-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(74,46,26,0.1);border-color:rgba(232,135,58,0.4)}
+.broker-card.rec{border-color:#e8873a;background:linear-gradient(135deg,rgba(232,135,58,0.06) 0%,white 60%)}
+.b-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.75rem}
+.b-name{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:#2a1a0e}
+.b-rec-badge{font-size:0.6rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#e8873a;background:rgba(232,135,58,0.12);padding:0.25rem 0.6rem;border-radius:100px}
+.b-time{font-size:0.8rem;color:#5a8060;font-weight:600;margin-bottom:0.5rem}
+.b-note{font-size:0.78rem;color:#9a7a62;line-height:1.6}
+
+/* CREDENTIALS SECTION */
+.creds-section{background:#fdf6ec}
+.creds-note{font-size:0.92rem;color:#6b4f3a;line-height:1.75;max-width:600px;margin-top:0.75rem;margin-bottom:2.5rem}
+.creds-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.creds-card{background:white;border-radius:18px;padding:1.75rem;border:1.5px solid rgba(200,130,60,0.2)}
+.creds-broker{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:#2a1a0e;margin-bottom:1rem}
+.creds-format{background:#fdf6ec;border-radius:10px;padding:1rem 1.25rem;font-family:'Courier New',monospace;font-size:0.82rem;color:#4a2e1a;line-height:1.8;border:1px solid rgba(200,130,60,0.15);margin-bottom:0.85rem}
+.creds-tip{font-size:0.78rem;color:#9a7a62;line-height:1.65}
+.creds-tip a{color:#c4621a;text-decoration:none}
+.creds-tip a:hover{text-decoration:underline}
+
+/* TIMELINE */
+.timeline-section{background:#fff9f2}
+.timeline-note{font-size:0.92rem;color:#6b4f3a;line-height:1.75;max-width:600px;margin-top:0.75rem;margin-bottom:2.5rem}
+.timeline{display:flex;flex-direction:column;gap:0;max-width:680px}
+.tl-item{display:flex;gap:1.75rem;align-items:flex-start;padding:1.75rem 0;border-bottom:1px solid rgba(200,130,60,0.12)}
+.tl-item:last-child{border-bottom:none}
+.tl-marker{display:flex;flex-direction:column;align-items:center;gap:0;flex-shrink:0}
+.tl-dot{width:36px;height:36px;border-radius:50%;background:#e8873a;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0}
+.tl-time{font-family:'Fraunces',serif;font-size:0.72rem;font-weight:600;color:#c4621a;text-align:center;margin-top:0.4rem;white-space:nowrap}
+.tl-title{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:600;color:#2a1a0e;margin-bottom:0.4rem}
+.tl-body{font-size:0.86rem;color:#6b4f3a;line-height:1.75}
+
+/* COMMANDS QUICK REF */
+.commands-section{background:#fdf6ec}
+.cmd-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin-top:2rem}
+.cmd-pill{background:white;border-radius:14px;padding:1.1rem 1.25rem;border:1.5px solid rgba(200,130,60,0.2)}
+.cmd-name{font-family:'Fraunces',serif;font-size:1rem;font-weight:700;color:#c4621a;font-style:italic;margin-bottom:0.3rem}
+.cmd-desc{font-size:0.78rem;color:#6b4f3a;line-height:1.6}
+
+/* SAFETY REMINDER */
+.safety-reminder{background:#4a2e1a;padding:3rem 2.5rem;position:relative;overflow:hidden}
+.safety-reminder::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(232,135,58,0.12) 0%,transparent 70%)}
+.sr-inner{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;position:relative}
+.sr-item{text-align:center}
+.sr-icon{font-size:1.75rem;margin-bottom:0.6rem}
+.sr-title{font-family:'Fraunces',serif;font-size:0.95rem;font-weight:600;color:#f4a55e;margin-bottom:0.35rem}
+.sr-text{font-size:0.78rem;color:rgba(255,244,232,0.5);line-height:1.65}
+
+/* FINAL CTA */
+.final-cta{background:#e8873a;padding:6rem 2.5rem;text-align:center;position:relative;overflow:hidden}
+.final-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 0%,rgba(255,255,255,0.14) 0%,transparent 70%)}
+.cta-title{font-family:'Fraunces',serif;font-size:clamp(2rem,5vw,4.5rem);font-weight:700;line-height:1.05;color:white;letter-spacing:-0.02em;position:relative}
+.cta-sub{color:rgba(255,255,255,0.82);font-size:1rem;margin-top:1rem;margin-bottom:2.5rem;position:relative}
+.btn-white{background:white;color:#c4621a;border:none;border-radius:100px;padding:1.1rem 2.8rem;font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;position:relative;box-shadow:0 6px 24px rgba(0,0,0,0.15);transition:all 0.2s}
+.btn-white:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(0,0,0,0.2)}
+.cta-note{font-size:0.75rem;color:rgba(255,255,255,0.55);margin-top:1.25rem;position:relative}
+
+footer{background:#4a2e1a;padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.f-brand{font-family:'Fraunces',serif;font-size:1rem;font-weight:600;color:#f4a55e}
+.f-fine{font-size:0.67rem;color:rgba(255,244,232,0.3);max-width:520px;line-height:1.6;text-align:center}
+.f-link{font-size:0.78rem;color:rgba(255,244,232,0.45);text-decoration:none}
+.f-link:hover{color:#f4a55e}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:900px){.tier-grid{grid-template-columns:repeat(2,1fr)}.broker-grid{grid-template-columns:1fr 1fr}.creds-grid{grid-template-columns:1fr}.cmd-grid{grid-template-columns:repeat(2,1fr)}.sr-inner{grid-template-columns:1fr}}
+@media(max-width:640px){nav{padding:1rem 1.25rem}.section,.safety-reminder{padding:3.5rem 1.25rem}.page-header{padding:7rem 1.25rem 3rem}.tier-grid{grid-template-columns:1fr 1fr}.broker-grid{grid-template-columns:1fr}.cmd-grid{grid-template-columns:1fr}.nav-link{display:none}footer{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand" style="text-decoration:none">
+    <div class="nav-logo">Kill A Bill</div>
+    <div class="nav-sub">by Alexander Systems</div>
+  </a>
+  <div class="nav-links">
+    <a href="how-it-works.html" class="nav-link">How it works</a>
+    <a href="https://t.me/KillABill_bot" target="_blank" class="nav-cta">Start on Telegram →</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <a href="index.html" class="back-link">← Back to home</a>
+  <h1 class="page-title">Let's get you<br><em>set up.</em></h1>
+  <p class="page-sub">Follow these steps and you'll be live in minutes. Most people are up and running before their coffee gets cold.</p>
+</div>
+
+<!-- STEP 1 — TIER -->
+<section class="section tier-section">
+  <div class="eyebrow-tag">Step 1 of 4</div>
+  <h2 class="section-title">Pick your account range.</h2>
+  <p class="tier-note">The strategy automatically calibrates to your account size — this just helps you know what to expect. You can switch tiers anytime with a single Telegram command, no credential re-entry needed.</p>
+  <div class="tier-grid reveal">
+    <div class="tier-card">
+      <div class="t-name">Starter</div>
+      <div class="t-range">$1,500 – $5,000</div>
+      <div class="t-price">$49</div>
+      <div class="t-mo">/ month</div>
+    </div>
+    <div class="tier-card featured">
+      <div class="t-badge">Most Popular</div>
+      <div class="t-name">Growth</div>
+      <div class="t-range">$5,000 – $20,000</div>
+      <div class="t-price">$99</div>
+      <div class="t-mo">/ month</div>
+    </div>
+    <div class="tier-card">
+      <div class="t-name">Builder</div>
+      <div class="t-range">$20,000 – $75,000</div>
+      <div class="t-price">$199</div>
+      <div class="t-mo">/ month</div>
+    </div>
+    <div class="tier-card">
+      <div class="t-name">Flagship</div>
+      <div class="t-range">$75,000+</div>
+      <div class="t-price">$299</div>
+      <div class="t-mo">/ month</div>
+    </div>
+    <div class="tier-card">
+      <div class="t-name">Aggressive</div>
+      <div class="t-range">$5,000 – $50,000</div>
+      <div class="t-price">$99</div>
+      <div class="t-mo">/ month</div>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 2 — BROKER -->
+<section class="section broker-section">
+  <div class="eyebrow-tag">Step 2 of 4</div>
+  <h2 class="section-title">Open or confirm your<br><em>brokerage account.</em></h2>
+  <p class="broker-note">You need an options-enabled brokerage account at a supported broker. Options Level 2 or higher is required. If you already have one at a supported broker, you're good — skip ahead to Step 3. If Schwab or Webull require advance approval, start that application now before moving on.</p>
+  <div class="broker-grid reveal">
+    <div class="broker-card rec">
+      <div class="b-top">
+        <div class="b-name">Alpaca</div>
+        <div class="b-rec-badge">Recommended</div>
+      </div>
+      <div class="b-time">⚡ ~10 minutes</div>
+      <p class="b-note">Free to open. Instant API key generation — no approval wait. Most clients are trading within 10 minutes. Visit <a href="https://alpaca.markets" target="_blank" style="color:#c4621a">alpaca.markets</a> to get started.</p>
+    </div>
+    <div class="broker-card">
+      <div class="b-name">Tastytrade</div>
+      <div class="b-time">⚡ ~15 minutes</div>
+      <p class="b-note">Strong options platform with immediate API access. Username and password authentication — straightforward setup.</p>
+    </div>
+    <div class="broker-card">
+      <div class="b-name">E*Trade (Morgan Stanley)</div>
+      <div class="b-time">~1–2 hours</div>
+      <p class="b-note">One-time browser authorization via OAuth. The bot will send you the authorization link. Apply at <a href="https://developer.etrade.com" target="_blank" style="color:#c4621a">developer.etrade.com</a>.</p>
+    </div>
+    <div class="broker-card">
+      <div class="b-name">Charles Schwab</div>
+      <div class="b-time">1–3 business days</div>
+      <p class="b-note">Developer application required before you can generate API keys. Start early. Apply at <a href="https://developer.schwab.com" target="_blank" style="color:#c4621a">developer.schwab.com</a>.</p>
+    </div>
+    <div class="broker-card">
+      <div class="b-name">Webull</div>
+      <div class="b-time">1–3 business days</div>
+      <p class="b-note">API approval required plus a $500 minimum funded account and Level 3 options. Apply at <a href="https://developer.webull.com" target="_blank" style="color:#c4621a">developer.webull.com</a>.</p>
+    </div>
+    <div class="broker-card">
+      <div class="b-name">IBKR</div>
+      <div class="b-time">Coming May 2026</div>
+      <p class="b-note">Institutional-grade access. Best for larger accounts. Contact us directly for setup once IBKR support goes live.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 3 — CREDENTIALS -->
+<section class="section creds-section">
+  <div class="eyebrow-tag">Step 3 of 4</div>
+  <h2 class="section-title">Connect through<br><em>Telegram.</em></h2>
+  <p class="creds-note">Search <strong>@KillABill_bot</strong> on Telegram and send /start. Select your broker and submit your API credentials in the exact format below. The bot verifies the connection automatically — you'll receive a confirmation within seconds.</p>
+  <div class="creds-grid reveal">
+    <div class="creds-card">
+      <div class="creds-broker">Alpaca</div>
+      <div class="creds-format">KEY: your_api_key_id<br>SECRET: your_secret_key</div>
+      <p class="creds-tip">Generate keys at <a href="https://alpaca.markets" target="_blank">alpaca.markets</a> → Dashboard → API Keys → Generate New Key. Select Paper Trading to test first, or Live Trading to go live immediately.</p>
+    </div>
+    <div class="creds-card">
+      <div class="creds-broker">Tastytrade</div>
+      <div class="creds-format">USERNAME: your_username</div>
+      <p class="creds-tip">Submit your username first. The bot will walk you through password authentication in the next step.</p>
+    </div>
+    <div class="creds-card">
+      <div class="creds-broker">E*Trade (Morgan Stanley)</div>
+      <div class="creds-format">KEY: your_consumer_key<br>SECRET: your_consumer_secret</div>
+      <p class="creds-tip">Get your keys at <a href="https://developer.etrade.com" target="_blank">developer.etrade.com</a>. After submitting, the bot sends you a one-time browser authorization link. Complete that and you're connected.</p>
+    </div>
+    <div class="creds-card">
+      <div class="creds-broker">Charles Schwab</div>
+      <div class="creds-format">KEY: your_app_key<br>SECRET: your_app_secret</div>
+      <p class="creds-tip">From <a href="https://developer.schwab.com" target="_blank">developer.schwab.com</a> after approval. A one-time OAuth2 browser flow is required. The bot provides the link.</p>
+    </div>
+    <div class="creds-card">
+      <div class="creds-broker">Webull</div>
+      <div class="creds-format">KEY: your_app_key<br>SECRET: your_app_secret</div>
+      <p class="creds-tip">From <a href="https://developer.webull.com" target="_blank">developer.webull.com</a>. Requires a funded account with $500 minimum and Level 3 options enabled.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 4 — WHAT HAPPENS NEXT -->
+<section class="section timeline-section">
+  <div class="eyebrow-tag">Step 4 of 4</div>
+  <h2 class="section-title">You're live. Here's<br><em>what happens next.</em></h2>
+  <p class="timeline-note">Once connected, the system begins at the next market open. Here's exactly what to expect and when.</p>
+  <div class="timeline reveal">
+    <div class="tl-item">
+      <div class="tl-marker">
+        <div class="tl-dot">📲</div>
+        <div class="tl-time">Day 1</div>
+      </div>
+      <div>
+        <div class="tl-title">You're connected and confirmed</div>
+        <p class="tl-body">The bot sends a confirmation with your selected tier and strategy details. Your account is now being monitored. The spread bot begins scanning for the first qualifying setup at 9:30 AM ET on the next trading day.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-marker">
+        <div class="tl-dot">💸</div>
+        <div class="tl-time">Days 1–7</div>
+      </div>
+      <div>
+        <div class="tl-title">First spread position entered</div>
+        <p class="tl-body">The spread bot finds a qualifying setup and places the first bull put spread. You'll see the position appear in your broker account in real time. The LEAPS queue begins accumulating simultaneously.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-marker">
+        <div class="tl-dot">📈</div>
+        <div class="tl-time">Weeks 2–8</div>
+      </div>
+      <div>
+        <div class="tl-title">LEAPS growth position opens</div>
+        <p class="tl-body">Once the LEAPS queue reaches its threshold, the growth engine opens its first position. Both the spread income bot and LEAPS growth engine are now running in parallel. Spread income starts accumulating in your pool.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-marker">
+        <div class="tl-dot">📅</div>
+        <div class="tl-time">Every Friday</div>
+      </div>
+      <div>
+        <div class="tl-title">Weekly summary at 4:05 PM ET</div>
+        <p class="tl-body">Every Friday afternoon you receive a full plain-English account summary — positions, income collected that week, running P&L, and anything noteworthy. No jargon. Just your numbers.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-marker">
+        <div class="tl-dot">🔔</div>
+        <div class="tl-time">Months 12–18</div>
+      </div>
+      <div>
+        <div class="tl-title">First LEAPS harvest notification</div>
+        <p class="tl-body">When your LEAPS position reaches 2.25x its effective cost basis, you receive a Telegram notification. You have 24 hours to send /take and direct those profits to your pool for withdrawal — or do nothing and they automatically reinvest into the next cycle.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUICK COMMAND REFERENCE -->
+<section class="section commands-section">
+  <div class="eyebrow-tag">Quick Reference</div>
+  <h2 class="section-title">Your Telegram commands.</h2>
+  <div class="cmd-grid reveal">
+    <div class="cmd-pill">
+      <div class="cmd-name">/status</div>
+      <div class="cmd-desc">Live positions, pool balance, and P&L anytime</div>
+    </div>
+    <div class="cmd-pill">
+      <div class="cmd-name">/take</div>
+      <div class="cmd-desc">Claim a LEAPS harvest profit within 24 hours</div>
+    </div>
+    <div class="cmd-pill">
+      <div class="cmd-name">/pause</div>
+      <div class="cmd-desc">Stop new trades instantly — existing positions stay managed</div>
+    </div>
+    <div class="cmd-pill">
+      <div class="cmd-name">/resume</div>
+      <div class="cmd-desc">Resume trade entry after a pause</div>
+    </div>
+    <div class="cmd-pill">
+      <div class="cmd-name">/switch</div>
+      <div class="cmd-desc">Change tiers without re-entering credentials</div>
+    </div>
+    <div class="cmd-pill">
+      <div class="cmd-name">/help</div>
+      <div class="cmd-desc">Full command list, anytime</div>
+    </div>
+  </div>
+</section>
+
+<!-- SAFETY REMINDER -->
+<div class="safety-reminder">
+  <div class="sr-inner">
+    <div class="sr-item">
+      <div class="sr-icon">🔒</div>
+      <div class="sr-title">We can't touch your money</div>
+      <p class="sr-text">API keys are trade-only. Withdrawals and transfers are technically impossible from our end.</p>
+    </div>
+    <div class="sr-item">
+      <div class="sr-icon">👁️</div>
+      <div class="sr-title">See everything in real time</div>
+      <p class="sr-text">Every position appears in your broker app instantly. Full transparency, always.</p>
+    </div>
+    <div class="sr-item">
+      <div class="sr-icon">🚪</div>
+      <div class="sr-title">Leave anytime</div>
+      <p class="sr-text">/pause to stop immediately. Revoke API access in your broker to disconnect completely.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2 class="cta-title">Open Telegram<br>and let's go.</h2>
+  <p class="cta-sub">Search @KillABill_bot and send /start. Most people are live in under 10 minutes.</p>
+  <a href="https://t.me/KillABill_bot" target="_blank" class="btn-white">Open @KillABill_Bot 🤖</a>
+  <div class="cta-note">Your money never leaves your account · Flat fee, no percentages · Cancel anytime</div>
+</section>
+
+<footer>
+  <div class="f-brand">Kill A Bill — by Alexander Systems LLC</div>
+  <p class="f-fine">Past performance is not indicative of future results. All investing involves risk of loss. Alexander Systems LLC does not provide financial advice. API credentials grant trade-execution permissions only — withdrawals and transfers are not possible.</p>
+  <a href="index.html" class="f-link">← Back to home</a>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)} });
+},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
